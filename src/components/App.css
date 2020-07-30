@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: white;
+  min-height: 100vh; 
+  position: relative;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 400;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.viewPort {
+  padding: 50px 0;
+}
+
+.dayBackground {
+  background: rgb(0,117,179);
+  background: linear-gradient(90deg, rgba(0,117,179,1) 0%, rgba(48,160,255,1) 36%, rgba(0,212,255,1) 100%);
+  background-repeat: no-repeat;
+}
+
+.sunsetBackground {
+background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+}
+
+.nightBackground {
+background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+
+}
+

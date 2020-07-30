@@ -1,0 +1,20 @@
+#navBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+
+.suntastic-font-navbar {
+    font-size: 1.5em;
+    font-family: 'Vollkorn', serif;
+    opacity: 1;
+}
+
+.sun-img-navbar {
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+    opacity: 1;
+    animation: rotation infinite 3s linear;
+}
