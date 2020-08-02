@@ -38,7 +38,7 @@ class App extends Component {
         long: longitude
       })
 
-      axios.get(`${weatherApi.base}onecall?lat=${this.state.lat}&lon=${this.state.long}&lang=sp&appid=${weatherApi.key}&units=metric`)
+      axios.get(`${weatherApi.base}onecall?lat=${this.state.lat}&lon=${this.state.long}&lang=sp&appid=3cc24f01a015844a6e72b14577251ed5&units=metric`)
         .then(response => this.setState({
           info: response.data,
           daily: response.data.daily,
