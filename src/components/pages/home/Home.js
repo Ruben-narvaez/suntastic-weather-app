@@ -14,7 +14,7 @@ class Home extends Component {
     render() {
         return (
             <>
-                <main id="homeMain">
+                <div id="homeMain">
                     <div id="logo-with-sun" className="border-box">
                         <h1 className="suntastic-font">Suntastic</h1>
                         <img id="sun-img" src={sunLogo} alt="logo suntastic"/>
@@ -22,7 +22,7 @@ class Home extends Component {
                     <div className="border-box">
                         <Link className="white-button" to="/weather" >Entrar</Link>
                     </div>
-                </main>
+                </div>
             </>
         )
     }

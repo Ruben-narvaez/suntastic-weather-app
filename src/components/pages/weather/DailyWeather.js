@@ -10,9 +10,7 @@ class DailyWeather extends Component {
         super(props)
 
         this.state = {
-        }
-        
-        this.goBack = this.goBack.bind(this)
+        }      
     }
 
     showHours(unix) {
@@ -27,10 +25,6 @@ class DailyWeather extends Component {
 
     capitalizeFirst(phrase) {
         return phrase.charAt(0).toUpperCase() + phrase.slice(1)
-    }
-
-    goBack() {
-        this.props.history.goBack();
     }
 
     render() {

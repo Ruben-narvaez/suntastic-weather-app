@@ -10,6 +10,7 @@ import { Switch, Route } from 'react-router-dom'
 import Home from './pages/home/Home'
 import Weather from './pages/weather/Weather'
 import DailyWeather from './pages/weather/DailyWeather'
+import NoLocation from './pages/noLocation/NoLocation'
 
 const weatherApi = {
   base: `https://api.openweathermap.org/data/2.5/`,
@@ -38,7 +39,7 @@ class App extends Component {
         long: longitude
       })
 
-      axios.get(`${weatherApi.base}onecall?lat=${this.state.lat}&lon=${this.state.long}&lang=sp&appid=3cc24f01a015844a6e72b14577251ed5&units=metric`)
+      axios.get(`${weatherApi.base}onecall?lat=${this.state.lat}&lon=${this.state.long}&lang=sp&appid=${weatherApi.key}&units=metric`)
         .then(response => this.setState({
           info: response.data,
           daily: response.data.daily,
@@ -82,19 +83,29 @@ class App extends Component {
   render() {
     
     return (
+      
       <>
-        {(typeof this.state.current != 'undefined') && (
-          <main className={`viewPort ${this.backgroundHour(this.state.current.dt)}`}>
-
+        {this.state.lat === 0 && this.state.long === 0 ? (
+          <main className="dayBackground">
             <Switch>
-              <Route path='/' exact render={() => <Home />} />
-              <Route path='/weather' render={() => <Weather weekDay={this.getDayOfTheWeek(this.state.current.dt)} monthDay={this.getDay(this.state.current.dt)} weatherInfo={this.state.info} hourlyInfo={this.state.hourly} />} />
-              {this.state.daily && this.state.daily.map((elm, idx) => <Route key={idx} path={`/daily-weather-${this.getDayOfTheWeek(elm.dt)}`} render={() => <DailyWeather weekDay={this.getDayOfTheWeek(elm.dt)} monthDay={this.getDay(elm.dt)} timeZone={this.state.info.timezone} currentInfo={this.state.current} dailyInfo={this.state.daily[idx]} />} />)}
+              <Route path="/" exact render={() => <NoLocation />} />             
             </Switch>
-            {/* <Footer /> */}
-
           </main>
-        )}
+          )
+          :
+          (typeof this.state.current !== 'undefined') && (
+            <main className={`${this.backgroundHour(this.state.current.dt)}`}>
+              <Switch>
+                <Route path='/' exact render={() => <Home />} />
+                <Route path='/weather' render={() => <Weather weekDay={this.getDayOfTheWeek(this.state.current.dt)} monthDay={this.getDay(this.state.current.dt)} weatherInfo={this.state.info} hourlyInfo={this.state.hourly} />} />
+                {this.state.daily && this.state.daily.map((elm, idx) => <Route key={idx} path={`/daily-weather-${this.getDayOfTheWeek(elm.dt)}`} render={() => <DailyWeather weekDay={this.getDayOfTheWeek(elm.dt)} monthDay={this.getDay(elm.dt)} timeZone={this.state.info.timezone} currentInfo={this.state.current} dailyInfo={this.state.daily[idx]} />} />)}
+              </Switch>
+              {/* <Footer /> */}
+  
+            </main>
+          )         
+          }  
+    
       </>
     );
   }

@@ -12,28 +12,20 @@
     position: relative;
     bottom: 20px;
     margin-top: 0px;
-    color: #444;
-    background: rgb(255,255,255);
-    background: -moz-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(218,218,218,1) 100%);
-    background: -webkit-linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(218,218,218,1) 100%);
-    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(218,218,218,1) 100%);
-    -webkit-box-shadow: 0px 5px 25px -15px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 5px 25px -15px rgba(0,0,0,0.75);
-    box-shadow: 0px 5px 25px -15px rgba(0,0,0,0.75);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#dadada",GradientType=1);
+    color: white;
+    background: linear-gradient(45deg, #1f1f1f27, #ffffff07);
+    box-shadow: -4px -4px 6px 0 #0000001a,
+                2px 2px 6px 0 #f7f7f715;
     padding: 10px 70px;
     text-decoration: none;
     border-radius: 25px;
     transition: .3s;
     opacity: 0;
-    animation: opacity-animation .8s 3s linear forwards, vibrate-1 2.3s linear infinite both;
+    animation: opacity-animation .8s 3s linear forwards;
 }
 
 .white-button:hover {
     padding: 10px 100px;
-    -webkit-box-shadow: 0px 5px 27px -15px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 5px 27px -15px rgba(0,0,0,0.75);
-    box-shadow: 0px 5px 27px -15px rgba(0,0,0,0.75);
 }
 
 .border-box{

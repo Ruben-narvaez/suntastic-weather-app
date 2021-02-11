@@ -1,0 +1,48 @@
+.display-text-nolocation {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 16px;
+}
+
+.no-location-main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-location-main h4 {
+    margin: 16px;
+}
+
+.no-location-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.text-appear {
+    transition: .2s;
+    opacity: 0;
+    animation: opacity-animation .8s 1s linear forwards;
+}
+
+.sun-no-located {
+  opacity: 0;
+  width: 35px;
+  height: 35px;
+  position: relative;
+  margin-left: 10px;
+  animation: rotation infinite 3s linear, opacity-animation .8s .8s linear forwards;
+}
+
+.suntastic-font-no-animated {
+    font-weight: 500;
+    font-size: 1.5em;
+    opacity: 0;
+    animation: opacity-animation .8s .8s linear forwards;
+}

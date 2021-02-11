@@ -23,13 +23,10 @@ code {
     monospace;
 }
 
-.viewPort {
-  padding: 50px 0;
-}
 
 .dayBackground {
-  background: rgb(0,117,179);
-  background: linear-gradient(90deg, rgba(0,117,179,1) 0%, rgba(48,160,255,1) 36%, rgba(0,212,255,1) 100%);
+  background: #0075b3;
+  background: linear-gradient(90deg, #0075b3 0%, #30a0ff 36%, #00c9f1 100%);
   background-repeat: no-repeat;
 }
 
@@ -38,7 +35,9 @@ background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%
 }
 
 .nightBackground {
-background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+  background: #040b3c;
+background: linear-gradient(to bottom,  #141a47 0%,#01317a 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#040b3c', endColorstr='#012459',GradientType=0 );
 
 }
 
