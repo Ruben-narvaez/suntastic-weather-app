@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 
 // import Footer from './ui/Footer'
 import axios from 'axios'
+import { AnimatePresence } from "framer-motion";
 
 import './App.css'
 
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, useLocation } from 'react-router-dom'
 
 import Home from './pages/home/Home'
 import Weather from './pages/weather/Weather'
@@ -17,6 +18,8 @@ const weatherApi = {
   key: process.env.REACT_APP_WEATHER_API_KEY
 }
 
+
+
 class App extends Component {
 
   constructor(props) {
@@ -24,7 +27,7 @@ class App extends Component {
 
     this.state = {
       lat: 0,
-      long: 0
+      long: 0,
     }
   }
 
@@ -81,7 +84,9 @@ class App extends Component {
   }
 
   render() {
-    
+
+    let location = window.location
+
     return (
       
       <>
@@ -95,13 +100,17 @@ class App extends Component {
           :
           (typeof this.state.current !== 'undefined') && (
             <main className={`${this.backgroundHour(this.state.current.dt)}`}>
-              <Switch>
+            {/* <main className="dayBackground"> */}
+            <AnimatePresence >
+
+              <Switch >
                 <Route path='/' exact render={() => <Home />} />
                 <Route path='/weather' render={() => <Weather weekDay={this.getDayOfTheWeek(this.state.current.dt)} monthDay={this.getDay(this.state.current.dt)} weatherInfo={this.state.info} hourlyInfo={this.state.hourly} />} />
                 {this.state.daily && this.state.daily.map((elm, idx) => <Route key={idx} path={`/daily-weather-${this.getDayOfTheWeek(elm.dt)}`} render={() => <DailyWeather weekDay={this.getDayOfTheWeek(elm.dt)} monthDay={this.getDay(elm.dt)} timeZone={this.state.info.timezone} currentInfo={this.state.current} dailyInfo={this.state.daily[idx]} />} />)}
               </Switch>
               {/* <Footer /> */}
-  
+              
+            </AnimatePresence>  
             </main>
           )         
           }  

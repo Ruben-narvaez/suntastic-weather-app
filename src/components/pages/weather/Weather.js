@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, location } from 'react-router-dom'
+import { Line, Radar, Bar } from 'react-chartjs-2';
+
+import { motion } from "framer-motion";
+import { slideAnimation } from '../../../animations/animations'
+
 import './Weather.css'
 import dawnImg from '../../../assets/images/salida-del-sol.png'
 import sunsetImg from '../../../assets/images/puesta-del-sol.png'
-import { Line, Radar, Bar } from 'react-chartjs-2';
 
 class Weather extends Component {
 
@@ -96,220 +100,237 @@ class Weather extends Component {
     render() {
 
         const { weatherInfo, weekDay, monthDay } = this.props
-    
+
         return (
             
-            <section >
+            <motion.div
+                initial="out"
+                animate="end"
+                exit="out"
+                variants={slideAnimation}
+            >
                 {(typeof weatherInfo != 'undefined') && (
                     <div id="weather-page">
-                        <article className="firstDiv">
-                            <div className="center principalInfo">
-                                <h2>{weekDay}, {monthDay} {this.getMonthName(weatherInfo.current.dt)}</h2>
-                                <h4>{weatherInfo.timezone}</h4>
-                                <h3 className="temperature">{Math.round(weatherInfo.current.temp)}º</h3>
-                                <h4>Sensación térmica: {Math.round(weatherInfo.current.feels_like)}º</h4>
-                                <div className="iconDiv">
-                                    <img src={require(`../../../assets/images/${weatherInfo.current.weather[0].icon}.png`)} alt="weather icon" />
-                                    <p className="firstPar">{this.capitalizeFirst(weatherInfo.current.weather[0].description)}</p>
-                                </div>
-                            </div>
-                        </article>
+                        <div className="title-div">
+                            <h2>{weekDay}, {monthDay} {this.getMonthName(weatherInfo.current.dt)}</h2>
+                            <h4>Zona horaria</h4>
+                            <h4>{weatherInfo.timezone}</h4>
+                        </div>
                         <div className='responsive-flex center'>
-                            <div className='center responsive-width'>
-                                <article className='center full-width'>
-                                    <div className="width-problems box border-square center">
-                                        <div className='flexRow'>
-                                            <img src={require('../../../assets/images/temperaturas.png')} alt='termometro' />
-                                            <h4>{Math.round(weatherInfo.daily[0].temp.max)}º - {Math.round(weatherInfo.daily[0].temp.min)}º</h4>
-                                        </div>
-                                        <div className="flexRow">
-                                            <img src={require('../../../assets/images/humidity.png')} alt='humedad' />
-                                            <h4>Humedad: {weatherInfo.current.humidity}%</h4>
-                                        </div>
-                                        <div className='flexRow'>
-                                            <img src={require('../../../assets/images/50d.png')} alt='viento' />
-                                            <h4>Viento: {(weatherInfo.current.wind_speed * 3.6).toFixed(1)} Km/h</h4>
-                                        </div>
-                                        <div className='flexRow'>
-                                            <img src={require('../../../assets/images/03d.png')} alt='nubes' />
-                                            <h4>Nubes: {weatherInfo.current.clouds}%</h4>
+                            <div className='center responsive-width little-margin'>
+                                <article className='display-vertical-separation'>
+                                    <div className="firstDiv">
+                                        <div className="center principalInfo">
+                                            <div className="weather-display">
+                                                <div className="weather-div">
+                                                    <h3 className="temperature">{Math.round(weatherInfo.current.temp)}º</h3>
+                                                    <h4>Sensación térmica: {Math.round(weatherInfo.current.feels_like)}º</h4>
+                                                </div>
+                                                <div className="iconDiv">
+                                                    <img src={require(`../../../assets/images/${weatherInfo.current.weather[0].icon}.png`).default} alt={weatherInfo.current.weather[0].description} />
+                                                    <p className="firstPar">{this.capitalizeFirst(weatherInfo.current.weather[0].description)}</p>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div className="width-problems box center border-square">
-                                        <div className="dawnDiv">
-                                            <img src={dawnImg} alt='amanecer' />
-                                            <h4>{this.showHours(weatherInfo.current.sunrise) < 10 ? '0' + this.showHours(weatherInfo.current.sunrise) : this.showHours(weatherInfo.current.sunrise)}:{this.showMinutes(weatherInfo.current.sunrise) < 10 ? '0' + this.showMinutes(weatherInfo.current.sunrise) : this.showMinutes(weatherInfo.current.sunrise)}</h4>
+                                    <div className="full-width">
+                                        <div className="width-problems box border-square center">
+                                            <div className='flexRow'>
+                                                <img src={require('../../../assets/images/temperaturas.png').default} alt='termometro' />
+                                                <h4>{Math.round(weatherInfo.daily[0].temp.max)}º - {Math.round(weatherInfo.daily[0].temp.min)}º</h4>
+                                            </div>
+                                            <div className="flexRow">
+                                                <img src={require('../../../assets/images/humidity.png').default} alt='humedad' />
+                                                <h4>Humedad: {weatherInfo.current.humidity}%</h4>
+                                            </div>
+                                            <div className='flexRow'>
+                                                <img src={require('../../../assets/images/50d.png').default} alt='viento' />
+                                                <h4>Viento: {(weatherInfo.current.wind_speed * 3.6).toFixed(1)} Km/h</h4>
+                                            </div>
+                                            <div className='flexRow'>
+                                                <img src={require('../../../assets/images/03d.png').default} alt='nubes' />
+                                                <h4>Nubes: {weatherInfo.current.clouds}%</h4>
+                                            </div>
                                         </div>
-                                        <div className="dawnDiv">
-                                            <img src={sunsetImg} alt='puesta de sol' />
-                                            <h4>{this.showHours(weatherInfo.current.sunset) < 10 ? '0' + this.showHours(weatherInfo.current.sunset) : this.showHours(weatherInfo.current.sunset)}:{this.showMinutes(weatherInfo.current.sunset) < 10 ? '0' + this.showMinutes(weatherInfo.current.sunset) : this.showMinutes(weatherInfo.current.sunset)}</h4>
+
+                                        <div className="width-problems box center border-square">
+                                            <div className="dawnDiv">
+                                                <img src={dawnImg} alt='amanecer' />
+                                                <h4>{this.showHours(weatherInfo.current.sunrise) < 10 ? '0' + this.showHours(weatherInfo.current.sunrise) : this.showHours(weatherInfo.current.sunrise)}:{this.showMinutes(weatherInfo.current.sunrise) < 10 ? '0' + this.showMinutes(weatherInfo.current.sunrise) : this.showMinutes(weatherInfo.current.sunrise)}</h4>
+                                            </div>
+                                            <div className="dawnDiv">
+                                                <img src={sunsetImg} alt='puesta de sol' />
+                                                <h4>{this.showHours(weatherInfo.current.sunset) < 10 ? '0' + this.showHours(weatherInfo.current.sunset) : this.showHours(weatherInfo.current.sunset)}:{this.showMinutes(weatherInfo.current.sunset) < 10 ? '0' + this.showMinutes(weatherInfo.current.sunset) : this.showMinutes(weatherInfo.current.sunset)}</h4>
+                                            </div>
                                         </div>
                                     </div>
                                 </article>
                             </div>
-                            <article className='width-problems box center border-square charts-div'>
-                                <h2>Próximas horas</h2>
-                                <figure className='center temp-chart'>
-        
-                                    <Line
-                                        data={this.state.chartTemp}
-                                        width={300}
-                                        height={220}
-                                        options={{
-                                            maintainAspectRatio: false,
-                                            scales: {
-                                                xAxes: [{
-                                                    gridLines: {
-                                                        display: false,
-                                                    },
-                                                    ticks: {
-                                                        fontColor: 'rgba(255, 255, 255, 0.832)',
-                                                        maxTicksLimit: 8,
-                                                        padding: 5,
-                                                        callback: function (value, index, values) {
-                                                            if (value < 10) {
-                                                                value = '0' + value
+                            <div className="full-width ">
+                                <article className='center box border-square charts-div'>
+                                    <h2>Próximas horas</h2>
+                                    <figure className='center temp-chart'>
+            
+                                        <Line
+                                            data={this.state.chartTemp}
+                                            width={300}
+                                            height={220}
+                                            options={{
+                                                maintainAspectRatio: false,
+                                                scales: {
+                                                    xAxes: [{
+                                                        gridLines: {
+                                                            display: false,
+                                                        },
+                                                        ticks: {
+                                                            fontColor: 'rgba(255, 255, 255, 0.832)',
+                                                            maxTicksLimit: 8,
+                                                            padding: 5,
+                                                            callback: function (value, index, values) {
+                                                                if (value < 10) {
+                                                                    value = '0' + value
+                                                                }
+                                                                return value + ' h'
                                                             }
-                                                            return value + ' h'
                                                         }
-                                                    }
-                                                }],
-                                                yAxes: [{
-                                                    gridLines: {
-                                                        color: 'rgba(255, 255, 255, 0.232)',
-                                                        lineWidth: 1,
-                                                        tickMarkLength: 0,
-                                                    },
-                                                    ticks: {
-                                                        fontColor: 'rgba(255, 255, 255, 0.832)',
-                                                        maxTicksLimit: 6,
-                                                        padding: 5,
-                                                        callback: function (value, index, values) {
-                                                            return value + 'º';
-                                                        }
-                                                    }
-                                                }]
-                                            },
-                                            title: {
-                                                display: true,
-                                                text: 'Temperatura',
-                                                fontStyle: 'Montserrat',
-                                                fontColor: 'rgba(255, 255, 255)',
-                                            },
-                                            legend: {
-                                                display: false,
-                                            }
-                                        }}
-                                    />
-                                </figure>
-                                
-                                <figure className='humidity-chart'>
-                                    <Bar
-                                        data={this.state.chartHumidity}
-                                        width={300}
-                                        height={180}
-                                        options={{
-                                            maintainAspectRatio: false,
-                                            title: {
-                                                display: true,
-                                                text: 'Humedad',
-                                                fontStyle: 'Montserrat',
-                                                fontColor: 'rgba(255, 255, 255)',
-                                            },
-                                            legend: {
-                                                display: false,
-                                            },
-                                            scales: {
-                                                xAxes: [{
-                                                    gridLines: {
-                                                        display: false,
-                                                    },
-                                                    ticks: {
-                                                        fontColor: 'rgba(255, 255, 255, 0.832)',
-                                                        maxTicksLimit: 8,
-                                                        padding: 5,
-                                                        callback: function (value, index, values) {
-                                                            if (value < 10) {
-                                                                value = '0' + value
+                                                    }],
+                                                    yAxes: [{
+                                                        gridLines: {
+                                                            color: 'rgba(255, 255, 255, 0.232)',
+                                                            lineWidth: 1,
+                                                            tickMarkLength: 0,
+                                                        },
+                                                        ticks: {
+                                                            fontColor: 'rgba(255, 255, 255, 0.832)',
+                                                            maxTicksLimit: 6,
+                                                            padding: 5,
+                                                            callback: function (value, index, values) {
+                                                                return value + 'º';
                                                             }
-                                                            return value + ' h'
                                                         }
-                                                    }
-                                                }],
-                                                yAxes: [{
-                                                    gridLines: {
-                                                        color: 'rgba(255, 255, 255, 0.232)',
-                                                        lineWidth: 1,
-                                                        tickMarkLength: 0,
-                                                    },
-                                                    ticks: {
-                                                        fontColor: 'rgba(255, 255, 255, 0.832)',
-                                                        maxTicksLimit: 6,
-                                                        padding: 5,
-                                                        callback: function (value, index, values) {
-                                                            return value + '%';
-                                                        }
-                                                    }
-                                                }]
-                                            },
-                                        }}
-                                    />
-                                </figure>
-
-                                <figure className='wind-chart'>
-                                    <Radar
-                                        data={this.state.chartWind}
-                                        width={450}
-                                        height={300}
-                                        options={{
-                                            maintainAspectRatio: false,
-                                            title: {
-                                                display: true,
-                                                text: 'Viento',
-                                                fontStyle: 'Montserrat',
-                                                fontColor: 'rgba(255, 255, 255)',
-                                            },
-                                            legend: {
-                                                display: false,
-                                            },
-                                            scale: {
-                                                gridLines: {
-                                                    color: 'rgba(255, 255, 255, 0.232)',
+                                                    }]
                                                 },
-                                                angleLines: {
-                                                    color: 'rgba(255, 255, 255, 0.232)',
-                                                },
-                                                pointLabels: {
-                                                    fontColor: 'rgba(255, 255, 255, 0.832)',
-                                                    fontFamily: 'Montserrat',
-                                                    callback: function (value, index, values) {
-                                                        if (value < 10) {
-                                                            value = '0' + value
-                                                        }
-                                                        if (value % 2 === 0) {
-                                                            return value + ' h'
-                                                        }
-                                                    }
-                                                },
-                                                ticks: {
+                                                title: {
                                                     display: true,
-                                                    showLabelBackdrop: false,
-                                                    backdropPaddingX: 3,
-                                                    stepSize: 2,
-                                                    beginAtZero: true,
-                                                    fontColor: 'rgba(255, 255, 255, 0.832)',
-                                                    fontFamily: 'Montserrat',
-                                                    backgroundColor: 'red',
-                                                    callback: function (value, index, values) {
-                                                        return value + ' km/h';
-                                                    },
+                                                    text: 'Temperatura',
+                                                    fontStyle: 'Montserrat',
+                                                    fontColor: 'rgba(255, 255, 255)',
+                                                },
+                                                legend: {
+                                                    display: false,
                                                 }
-                                            }
-                                        }}
-                                    />
-                                </figure>
-                            </article>
+                                            }}
+                                        />
+                                    </figure>
+                                    
+                                    <figure className='humidity-chart'>
+                                        <Bar
+                                            data={this.state.chartHumidity}
+                                            width={300}
+                                            height={180}
+                                            options={{
+                                                maintainAspectRatio: false,
+                                                title: {
+                                                    display: true,
+                                                    text: 'Humedad',
+                                                    fontStyle: 'Montserrat',
+                                                    fontColor: 'rgba(255, 255, 255)',
+                                                },
+                                                legend: {
+                                                    display: false,
+                                                },
+                                                scales: {
+                                                    xAxes: [{
+                                                        gridLines: {
+                                                            display: false,
+                                                        },
+                                                        ticks: {
+                                                            fontColor: 'rgba(255, 255, 255, 0.832)',
+                                                            maxTicksLimit: 8,
+                                                            padding: 5,
+                                                            callback: function (value, index, values) {
+                                                                if (value < 10) {
+                                                                    value = '0' + value
+                                                                }
+                                                                return value + ' h'
+                                                            }
+                                                        }
+                                                    }],
+                                                    yAxes: [{
+                                                        gridLines: {
+                                                            color: 'rgba(255, 255, 255, 0.232)',
+                                                            lineWidth: 1,
+                                                            tickMarkLength: 0,
+                                                        },
+                                                        ticks: {
+                                                            fontColor: 'rgba(255, 255, 255, 0.832)',
+                                                            maxTicksLimit: 6,
+                                                            padding: 5,
+                                                            callback: function (value, index, values) {
+                                                                return value + '%';
+                                                            }
+                                                        }
+                                                    }]
+                                                },
+                                            }}
+                                        />
+                                    </figure>
+
+                                    <figure className='wind-chart'>
+                                        <Radar
+                                            data={this.state.chartWind}
+                                            width={450}
+                                            height={300}
+                                            options={{
+                                                maintainAspectRatio: false,
+                                                title: {
+                                                    display: true,
+                                                    text: 'Viento',
+                                                    fontStyle: 'Montserrat',
+                                                    fontColor: 'rgba(255, 255, 255)',
+                                                },
+                                                legend: {
+                                                    display: false,
+                                                },
+                                                scale: {
+                                                    gridLines: {
+                                                        color: 'rgba(255, 255, 255, 0.232)',
+                                                    },
+                                                    angleLines: {
+                                                        color: 'rgba(255, 255, 255, 0.232)',
+                                                    },
+                                                    pointLabels: {
+                                                        fontColor: 'rgba(255, 255, 255, 0.832)',
+                                                        fontFamily: 'Montserrat',
+                                                        callback: function (value, index, values) {
+                                                            if (value < 10) {
+                                                                value = '0' + value
+                                                            }
+                                                            if (value % 2 === 0) {
+                                                                return value + ' h'
+                                                            }
+                                                        }
+                                                    },
+                                                    ticks: {
+                                                        display: true,
+                                                        showLabelBackdrop: false,
+                                                        backdropPaddingX: 3,
+                                                        stepSize: 2,
+                                                        beginAtZero: true,
+                                                        fontColor: 'rgba(255, 255, 255, 0.832)',
+                                                        fontFamily: 'Montserrat',
+                                                        backgroundColor: 'red',
+                                                        callback: function (value, index, values) {
+                                                            return value + ' km/h';
+                                                        },
+                                                    }
+                                                }
+                                            }}
+                                        />
+                                    </figure>
+                                </article>
+                            </div>
                         </div>
 
                         <article className="center border-square bottom-box">
@@ -317,7 +338,7 @@ class Weather extends Component {
                             <div className="other-days">
                                 {weatherInfo.daily.slice(1).slice(0, -1).map((elm, idx) =>
                                     <Link key={idx} className="daily-link" to={`/daily-weather-${this.getDayOfTheWeek(elm.dt)}`}>
-                                        {<div className="weather-days">{<div><img src={require(`../../../assets/images/${elm.weather[0].icon}.png`)} alt="daily icon" /></div>}
+                                        {<div className="weather-days">{<div><img src={require(`../../../assets/images/${elm.weather[0].icon}.png`).default} alt="daily icon" /></div>}
                                             {<div><h4>{this.getDayOfTheWeek(elm.dt)} {this.getDay(elm.dt)}</h4><h5>{this.capitalizeFirst(elm.weather[0].description)}</h5><h5>Max: {Math.round(elm.temp.max)}º min: {Math.round(elm.temp.min)}º</h5> </div>}
                                         </div>}
                                     </Link>)}
@@ -326,7 +347,7 @@ class Weather extends Component {
 
                     </div>
                 )}
-            </section>
+            </motion.div>
 
         )
     }
